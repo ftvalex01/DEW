@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="texto">Imagenes con javascript</h1>
+    <img id="imagen" onclick="cambiaImagen()" src="./images/pexels-angela-roma-7319307.jpg" alt="" width="400px" height="400px"/>
+    
+    <script>
+        
+        let images = document.getElementById('imagen');
+        let texto = document.getElementById('texto')
+        function cambiaImagen(){
+           if(images.src.match('roma')){
+            images.src='./images/pexels-furkanfdemir-7080688.jpg';
+            texto.innerHTML = 'Soy la imagen del furkanfdemir';
+           }else if(images.src.match('furkanfdemir')){
+            images.src='./images/pexels-ketut-subiyanto-4132326.jpg';
+            texto.style.color='red';
+            texto.innerHTML='Soy la segunda imagen';
+           }else if(images.src.match('ketut')){
+            images.src='./images/pexels-monstera-production-6373289.jpg';
+            texto.style.border='1px solid black';
+            texto.innerHTML='soy la ketut';
+           }else if(images.src.match('monstera')){
+            images.src='./images/pexels-vlada-karpovich-4050300.jpg';
+            texto.innerHTML='Cuarto y ultima imagen';
+            texto.style.backgroundColor='black'
+           }else if(images.src.match('vlada')){
+            images.src='./images/pexels-angela-roma-7319307.jpg'
+            texto.removeAttribute('style');
+            texto.innerHTML='Imagenes con javascript';
+           }
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Cuestionario UT1</h1>
+    <div id="preguntas"></div>
+</body>
+<script>
+    let preguntas = document.getElementById('preguntas');
+    let arrayCuestiones = [
+        '¿Es el backend la parte visible de la web? \n A:Verdadero \n B:Falso',
+        '¿Es una ventaja de los frameworks el coste? \n A:Verdadero \n B:Falso',
+        '¿Nacieron los scripts como fragmentos de código que realizaban ciertas tareas concretas? \n A:Verdadero \n B:Falso',
+        '¿Es necesaria las etiquetas script para usar codigo javascript? \n A:Verdadero \n B:Falso',
+        '¿Es Mongo una tecnologia del front-end? \n A:Verdadero \n B:Falso'
+    ];
+    let arrayRespuestas = [
+        'A','B',
+    ];
+    function trivial(){
+         if(prompt(arrayCuestiones[0] == arrayRespuestas[0])){
+            alert("ACIERTO")
+        };
+
+    }
+
+
+</script>
+</html>
