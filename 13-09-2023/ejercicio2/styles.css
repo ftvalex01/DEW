@@ -1,0 +1,34 @@
+html,body{
+    margin: 0 auto;
+}
+
+.container{
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.texto{
+    font-size: 16px;
+    font-weight: bold;
+
+}
+.container-botones{
+    display: flex;
+    width: 250px;
+    justify-content: space-around;
+}
+.button-verdadero{
+    background-color: green;
+    color: black;
+    border-radius: 5px;
+    box-shadow: 10px;
+}
+.button-falso{
+    background-color: red;
+    color: black;
+    border-radius: 5px;
+    box-shadow: 10px;
+}
