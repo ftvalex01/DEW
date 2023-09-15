@@ -1,108 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/styles.css" />
     <title>Document</title>
-</head>
-<body>
-    <div id="container" class="container"> 
-        <h1>Cuestionario UT1</h1>
-        <div class="texto-caja" >
-            <p id="texto"></p> 
-        </div>
-        <div class="container-botones">
-            <button type="submit" id="acierto" class="button-verdadero" onclick="preguntaAcierto(true)">Verdadero</button>
-            <button type="submit" id="fallo" class="button-falso" onclick="preguntaFallo(false)">Falso</button>
-        </div>
-        <div class="contador">
-            <p>Preguntas acertas:<span class="aciertos" id="total-aciertos"></span></p>
-            <p>Preguntas fallidas:<span span class="fallos" id="total-fallos"></span></p>
-        </div>
+  </head>
+  <body>
+    <div id="container" class="container">
+      <h1>Cuestionario UT1</h1>
+      <div class="texto-caja" id="texto-caja">
+        <p id="texto"></p>
+      </div>
+      <div class="container-botones">
+        <button
+          type="submit"
+          id="acierto"
+          class="button-verdadero"
+          onclick="preguntaAcierto(true)"
+        >
+          Verdadero
+        </button>
+        <button
+          type="submit"
+          id="fallo"
+          class="button-falso"
+          onclick="preguntaFallo(false)"
+        >
+          Falso
+        </button>
+      </div>
+      <div class="contador">
+        <p>
+          Preguntas acertas:<span class="aciertos" id="total-aciertos"></span>
+        </p>
+        <p>
+          Preguntas fallidas:<span span class="fallos" id="total-fallos"></span>
+        </p>
+      </div>
     </div>
-</body>
-<script>
-   
-    let texto = document.getElementById('texto');
-    let acierto = document.getElementById('acierto');
-    let fallo = document.getElementById('fallo');
-    let totalAciertos = document.getElementById('total-aciertos');
-    let totalFallos = document.getElementById('total-fallos');
-    let vueltas = 0;
-   function preguntaAcierto(evento){
-    trivial(evento)
-    return;
-   }
-   function preguntaFallo(evento){
-    trivial(evento)
-    return;
-   }
-
- 
-   
-
-    let arrayCuestiones = [
-        '¿Es el backend la parte visible de la web?',
-        '¿Es una ventaja de los frameworks el coste? ',
-        '¿Nacieron los scripts como fragmentos de código que realizaban ciertas tareas concretas? ',
-        '¿Es necesaria las etiquetas script para usar codigo javascript?',
-        '¿Es Mongo una tecnologia del front-end?'
-    ];
-
-    function trivial(evento){
-       if(texto.innerText == '' ){
-        texto.innerText = arrayCuestiones[0]
-        
-       }else if(texto.innerText.match('visible')){
-        if(evento == false){
-            totalAciertos.innerHTML ++
-        }else{
-            totalFallos.innerHTML ++
-        }
-        texto.innerText = arrayCuestiones[1]
-       }else if(texto.innerText.match('ventaja')){
-        if(evento == true){
-            totalAciertos.innerHTML ++
-        }else{
-            totalFallos.innerHTML ++
-        }
-        texto.innerText = arrayCuestiones[2]
-       }else if(texto.innerText.match('scripts')){
-        if(evento == true){
-            totalAciertos.innerHTML ++
-        }else{
-            totalFallos.innerHTML ++
-        }
-        texto.innerText = arrayCuestiones[3]
-       }else if(texto.innerText.match('etiquetas')){
-        if(evento == true){
-            totalAciertos.innerHTML ++
-        }else{
-            totalFallos.innerHTML ++
-        }
-        texto.innerText = arrayCuestiones[4]
-       }else if(texto.innerText.match('tecnologia')){
-        if(evento == false){
-            totalAciertos.innerHTML ++
-        }else{
-            totalFallos.innerHTML ++
-        }
-        texto.innerText = arrayCuestiones[0]
-        if(arrayCuestiones[0] ){
-        let item =   confirm("SE ACABO EL JUEGO")
-        totalAciertos.innerHTML = ''
-        totalFallos.innerHTML = ''
-        texto.innerText = ''
-        setTimeout(item,2000)
-         }
-        }
-        
-    }
-    trivial()
-    
-
-   
-
-</script>
+  </body>
+  <script src="./js/index.js"></script>
 </html>
