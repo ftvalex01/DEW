@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8">
+   <title>Cambiando el tamaño del texto</title>
+</head>
+<body>
+   <input type="number">
+   <div id="container-parrafos">
+      <p id="parrafo1">Texto a agrandar, reducir o dejar de forma original<strong> id = parrafo1</strong></p>
+      <p id="parrafo2">Este es el segundo párrafo <strong> id = parrafo2</strong></p>
+
+   </div>
+
+   <input type="text" name="parrafo" id="parrafo">
+   <button type="submit" onclick="modificarTexto('aumentar', 0.05, document.getElementById('parrafo').value);">Agrandar</button>
+   <button type="submit" onclick="modificarTexto('reducir', 0.05, document.getElementById('parrafo').value);">Reducir</button>
+   <button type="submit" onclick="modificarTexto('original', 0.05, document.getElementById('parrafo').value);">Original</button>
+
+
+<script src="./javascript/changeSize.js"></script>
+<script src="./javascript/añadirParrafos.js"></script>
+</body>
+</html>
