@@ -15,5 +15,12 @@ function selectParrafo() {
         opcionParrafo.value = `parrafo${i}`;
         opcionParrafo.textContent = `Párrafo ${i + 1}`;
         selectParrafo.appendChild(opcionParrafo);
+
+         parrafo.addEventListener('click', () => {
+          
+            selectParrafo.value = `parrafo${i}`;
+            opcionParrafo.textContent = `Párrafo ${i + 1}`;
+            selectParrafo.appendChild(opcionParrafo);
+        });
     });
 }

@@ -18,7 +18,7 @@ function generarParrafos() {
       let parrafo = document.createElement("p");
       parrafo.classList.add('parrafo-container');
       parrafo.id = `parrafo${i}`;
-      parrafo.textContent = `Soy el párrafo <strong>id = parrafo${i}</strong>`;
+      parrafo.innerHTML = `Soy el párrafo <strong>parrafo${i + 1}</strong>`;
       containerParrafos.appendChild(parrafo);
     }
 
