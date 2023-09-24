@@ -2,23 +2,44 @@
 <html lang="es">
 <head>
    <meta charset="UTF-8">
-   <title>Cambiando el tamaño del texto</title>
+   <link rel="stylesheet" href="./styles/style.css">
+   <title>Cambiando el estilo de párrafos</title>
 </head>
 <body>
-   <input type="number">
    <div id="container-parrafos">
-      <p id="parrafo1">Texto a agrandar, reducir o dejar de forma original<strong> id = parrafo1</strong></p>
-      <p id="parrafo2">Este es el segundo párrafo <strong> id = parrafo2</strong></p>
-
    </div>
+   <label for="numero-parrafos">Número de párrafos:</label>
+   <input type="number" id="numero-parrafos" min="1">
+   <button id="boton-formulario">Generar párrafos</button>
+   <label for="select-parrafo">Seleccionar párrafo:</label>
+   <select id="select-parrafo">
+       <option value="todos">Todos los párrafos</option>
+   </select>
+   <label for="tamaño">Tamaño:</label>
+   <select id="tamaño">
+       <option value="normal">Normal</option>
+       <option value="grande">Grande</option>
+       <option value="muy-grande">Muy grande</option>
+   </select>
+   <label for="color">Color:</label>
+   <select id="color">
+       <option value="verde">Verde</option>
+       <option value="rojo">Rojo</option>
+       <option value="azul">Azul</option>
+   </select>
+   <label for="fuente">Fuente:</label>
+   <select id="fuente">
+       <option value="arial">Arial</option>
+       <option value="times">Times New Roman</option>
+       <option value="verdana">Verdana</option>
+   </select>
+   <button id="limpiar-estilos">Limpiar Estilos</button>
 
-   <input type="text" name="parrafo" id="parrafo">
-   <button type="submit" onclick="modificarTexto('aumentar', 0.05, document.getElementById('parrafo').value);">Agrandar</button>
-   <button type="submit" onclick="modificarTexto('reducir', 0.05, document.getElementById('parrafo').value);">Reducir</button>
-   <button type="submit" onclick="modificarTexto('original', 0.05, document.getElementById('parrafo').value);">Original</button>
-
-
-<script src="./javascript/changeSize.js"></script>
-<script src="./javascript/añadirParrafos.js"></script>
+   <script src="./javascript/añadirParrafos.js"></script>
+   <script src="./javascript/selectParrafos.js"></script>
+   <script src="./javascript/editarTamaño.js"></script>
+   <script src="./javascript/editarColor.js"></script>
+   <script src="./javascript/editarFuente.js"></script>
+   <script src="./javascript/limpiarEstilos.js"></script>
 </body>
 </html>

@@ -1,12 +1,28 @@
-let containerParrafos = document.querySelector('#container-parrafos');
-let parrafos = document.createElement("p");
+let containerParrafos = document.querySelector("#container-parrafos");
+let button_formulario = document.querySelector("#boton-formulario");
 
-function añadirParrafos(){
-    for(let i = 0;i < 5; i++){
-    parrafos.id =`${i}`
-    parrafos.textContent=`soy el parrafo`
-    containerParrafos.insertAdjacentElement("beforeend",parrafos);
+function listeners() {
+  button_formulario.addEventListener("click", generarParrafos);
 }
 
+listeners();
+
+function generarParrafos() {
+  let numero_parrafos = document.querySelector("#numero-parrafos").value;
+  if (numero_parrafos > 10) {
+    alert("No se pueden poner más de 10 párrafos.");
+  } else {
+    containerParrafos.innerHTML = ''; 
+
+    for (let i = 0; i < numero_parrafos; i++) {
+      let parrafo = document.createElement("p");
+      parrafo.classList.add('parrafo-container');
+      parrafo.id = `parrafo${i}`;
+      parrafo.textContent = `Soy el párrafo <strong>id = parrafo${i}</strong>`;
+      containerParrafos.appendChild(parrafo);
+    }
+
+
+    selectParrafo();
+  }
 }
-añadirParrafos();
