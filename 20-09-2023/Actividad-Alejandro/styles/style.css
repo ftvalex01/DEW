@@ -1,3 +1,71 @@
+body {
+  font-family: 'Franklin Gothic Medium';
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding-top: 10px;
+  border-radius: 5px;
+}
+
+/* Titulo de la app */
+h1 {
+  text-align: center;
+  color: #333; 
+  margin-top: 20px;
+}
+
+/* Elementos generales */
+button {
+  padding: 10px 10px;
+  margin-top:10px ;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff; 
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #0056b3; 
+}
+label{
+  padding: 3px;
+  font-size: 16px;
+  margin-bottom: 3px;
+  margin-top: 3px;
+}
+select {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+  outline: none;
+}
+option {
+  padding: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+option:hover {
+  background-color: #f0f0f0;
+}
+
+/* container-parrafos */
 .parrafo-container {
   border: 1px solid black;
   background-color: #002947;
@@ -10,7 +78,7 @@
 }
 
 
-/* Estilos de tamaño */
+/* Estilos cambiantes tamaño parrafos */
 .normal {
   font-size: 16px;
 }
@@ -23,7 +91,7 @@
   font-size: 32px;
 }
 
-/* Estilos de color */
+/* Estilos cambiantes color parrafos */
 .verde {
   color: green;
 }
@@ -36,7 +104,7 @@
   color: blue;
 }
 
-/* Estilos de fuente */
+/* Estilos cambiantes fuente parraos*/
 .arial {
   font-family: Arial, sans-serif;
 }

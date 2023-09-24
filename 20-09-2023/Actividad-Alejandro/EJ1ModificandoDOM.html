@@ -3,38 +3,41 @@
 <head>
    <meta charset="UTF-8">
    <link rel="stylesheet" href="./styles/style.css">
-   <title>Cambiando el estilo de párrafos</title>
+   <title>Título de tu Aplicación</title>
 </head>
 <body>
-   <div id="container-parrafos">
+   <div class="container">
+      <h1>Título de tu Aplicación</h1>
+      <div id="container-parrafos">
+    </div>
+    <label for="numero-parrafos">Número de párrafos:</label>
+    <input type="number" id="numero-parrafos" min="1">
+    <button id="boton-formulario">Generar párrafos</button>
+    <label for="select-parrafo">Seleccionar párrafo:</label>
+    <select id="select-parrafo">
+        <option value="todos">Todos los párrafos</option>
+    </select>
+    <label for="tamaño">Tamaño:</label>
+    <select id="tamaño">
+        <option value="normal">Normal</option>
+        <option value="grande">Grande</option>
+        <option value="muy-grande">Muy grande</option>
+    </select>
+    <label for="color">Color:</label>
+    <select id="color">
+        <option value="verde">Verde</option>
+        <option value="rojo">Rojo</option>
+        <option value="azul">Azul</option>
+    </select>
+    <label for="fuente">Fuente:</label>
+    <select id="fuente">
+        <option value="arial">Arial</option>
+        <option value="times">Times New Roman</option>
+        <option value="verdana">Verdana</option>
+    </select>
+    <button id="limpiar-estilos">Limpiar Estilos</button>
    </div>
-   <label for="numero-parrafos">Número de párrafos:</label>
-   <input type="number" id="numero-parrafos" min="1">
-   <button id="boton-formulario">Generar párrafos</button>
-   <label for="select-parrafo">Seleccionar párrafo:</label>
-   <select id="select-parrafo">
-       <option value="todos">Todos los párrafos</option>
-   </select>
-   <label for="tamaño">Tamaño:</label>
-   <select id="tamaño">
-       <option value="normal">Normal</option>
-       <option value="grande">Grande</option>
-       <option value="muy-grande">Muy grande</option>
-   </select>
-   <label for="color">Color:</label>
-   <select id="color">
-       <option value="verde">Verde</option>
-       <option value="rojo">Rojo</option>
-       <option value="azul">Azul</option>
-   </select>
-   <label for="fuente">Fuente:</label>
-   <select id="fuente">
-       <option value="arial">Arial</option>
-       <option value="times">Times New Roman</option>
-       <option value="verdana">Verdana</option>
-   </select>
-   <button id="limpiar-estilos">Limpiar Estilos</button>
-
+   </div>
    <script src="./javascript/añadirParrafos.js"></script>
    <script src="./javascript/selectParrafos.js"></script>
    <script src="./javascript/editarTamaño.js"></script>
