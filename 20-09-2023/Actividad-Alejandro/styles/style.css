@@ -1,3 +1,5 @@
+
+
 body {
   font-family: 'Franklin Gothic Medium';
   background-color: #f0f0f0;
@@ -7,6 +9,7 @@ body {
 
 .container {
   max-width: 900px;
+  flex:1;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -115,4 +118,23 @@ option:hover {
 
 .verdana {
   font-family: Verdana, sans-serif;
+}
+
+
+
+
+
+/* Footer */
+
+.container-footer{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid black;
+  background-color: #ccc;
+  text-align: black;
+  padding: 20px 0;
+}
+.container-footer a{
+  font-size: 14px;
 }
