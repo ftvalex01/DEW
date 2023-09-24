@@ -1,7 +1,5 @@
-
-
 body {
-  font-family: 'Franklin Gothic Medium';
+  font-family: "Franklin Gothic Medium";
   background-color: #f0f0f0;
   margin: 0;
   padding: 0;
@@ -9,7 +7,7 @@ body {
 
 .container {
   max-width: 900px;
-  flex:1;
+  flex: 1;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -23,27 +21,29 @@ body {
 /* Titulo de la app */
 h1 {
   text-align: center;
-  color: #333; 
+  color: #333;
   margin-top: 20px;
+  font-weight: bold;
+  font-family: fantasy;
 }
 
 /* Elementos generales */
 button {
   padding: 10px 10px;
-  margin-top:10px ;
+  margin-top: 10px;
   margin-bottom: 10px;
   border: none;
   border-radius: 5px;
   background-color: #007bff;
-  color: #fff; 
+  color: #fff;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 button:hover {
-  background-color: #0056b3; 
+  background-color: #0056b3;
 }
-label{
+label {
   padding: 3px;
   font-size: 16px;
   margin-bottom: 3px;
@@ -79,7 +79,6 @@ option:hover {
   border-radius: 8px;
   cursor: pointer;
 }
-
 
 /* Estilos cambiantes tamaño parrafos */
 .normal {
@@ -120,13 +119,9 @@ option:hover {
   font-family: Verdana, sans-serif;
 }
 
-
-
-
-
 /* Footer */
 
-.container-footer{
+.container-footer {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -135,6 +130,6 @@ option:hover {
   text-align: black;
   padding: 20px 0;
 }
-.container-footer a{
+.container-footer a {
   font-size: 14px;
 }

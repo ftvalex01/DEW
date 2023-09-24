@@ -19,7 +19,7 @@ function generarParrafos() {
       parrafo.classList.add('parrafo-container');
       parrafo.id = `parrafo${i}`;
       parrafo.innerHTML = `Soy el párrafo <strong>parrafo${i + 1}</strong>`;
-      containerParrafos.appendChild(parrafo);
+      containerParrafos.insertAdjacentElement("beforeend", parrafo);
     }
 
 
