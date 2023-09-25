@@ -5,7 +5,14 @@ const listaCursos = document.querySelector('#lista-cursos'); //Busca el primer e
 const contenedorCarrito = document.querySelector('table > tbody'); //Busca el primer elemento tbody dentro del elemento con id lista-carrito
 const vaciarCarritoBtn = document.querySelector('#vaciar-carrito'); //Busca el primer elemento cuyo id sea vaciar-carrito
 const tarjetasCursos= document.querySelectorAll('.curso'); //Busca todos los elementos cuya clase sea curso
-let articulosCarrito = [];
+let articulosCarrito = []; 
+
+/* const carrito = document.getElementById('carrito'); //Busca el primer elemento cuyo id sea "carrito"
+const listaCursos = document.getElementById('lista-cursos'); //Busca el primer elemento cuyo id sea "lista-cursos"
+const contenedorCarrito = document.getElementsByTagName('tbody')[0]; //Busca el primer elemento tbody dentro del elemento con id lista-carrito
+const vaciarCarritoBtn = document.getElementById('vaciar-carrito'); //Busca el primer elemento cuyo id sea vaciar-carrito
+const tarjetasCursos= document.getElementsByClassName('.curso'); //Busca todos los elementos cuya clase sea curso
+let articulosCarrito = []; */
 
 // Listeners
 cargarEventListeners();
