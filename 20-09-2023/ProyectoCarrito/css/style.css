@@ -12,3 +12,6 @@
     background-color: red;
     padding: 5px;
 }
+.tachado{
+    text-decoration: line-through;
+}

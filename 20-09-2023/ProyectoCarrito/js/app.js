@@ -68,20 +68,31 @@ function leerDatosCurso(curso) {
  
      tarjetasCursos.forEach(tarjeta => {
          const autorTarjeta = tarjeta.querySelector('.info-card p').textContent;
+
+         // aplicando descuento
          let precioTarjeta = parseFloat(tarjeta.querySelector('.u-pull-right').textContent.replace('$', ''));
          let descuentoTarjeta = document.createElement('p');
          descuentoTarjeta.textContent = '!Descuento!';
          descuentoTarjeta.classList.add('descuento');
 
+         //Precio tachado
+         let precioTachado = document.createElement('p');
+         precioTachado.textContent = '$15';
+         precioTachado.classList.add('tachado');
+         
+          //primera tarjeta picada
          if (tarjeta.classList.contains('borde-azul') && precioTarjeta > 10) {
              tarjeta.classList.remove('borde-verde');
              precioTarjeta = Math.max(precioTarjeta - 5, 10);
              tarjeta.querySelector('.u-pull-right').textContent = `$${precioTarjeta}`;
+             tarjeta.querySelector('.u-pull-right').insertAdjacentElement("afterbegin", precioTachado);
              tarjeta.appendChild(descuentoTarjeta);
+             
          } else if (autorTarjeta === autorCursoAgregado && precioTarjeta > 10) {
              tarjeta.classList.add('borde-verde');
              precioTarjeta = Math.max(precioTarjeta - 5, 10);
              tarjeta.querySelector('.u-pull-right').textContent = `$${precioTarjeta}`;
+             tarjeta.querySelector('.u-pull-right').insertAdjacentElement("afterbegin", precioTachado);
              tarjeta.appendChild(descuentoTarjeta);
          }
          
