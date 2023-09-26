@@ -4,8 +4,10 @@ const carrito = document.querySelector('#carrito'); //Busca el primer elemento c
 const listaCursos = document.querySelector('#lista-cursos'); //Busca el primer elemento cuyo id sea "lista-cursos"
 const contenedorCarrito = document.querySelector('table > tbody'); //Busca el primer elemento tbody dentro del elemento con id lista-carrito
 const vaciarCarritoBtn = document.querySelector('#vaciar-carrito'); //Busca el primer elemento cuyo id sea vaciar-carrito
-const tarjetasCursos= document.querySelectorAll('.curso'); //Busca todos los elementos cuya clase sea curso
+const tarjetasCursos= document.querySelectorAll('.card'); //Busca todos los elementos cuya clase sea card
 let articulosCarrito = []; 
+
+
 
 /* const carrito = document.getElementById('carrito'); //Busca el primer elemento cuyo id sea "carrito"
 const listaCursos = document.getElementById('lista-cursos'); //Busca el primer elemento cuyo id sea "lista-cursos"
@@ -20,13 +22,13 @@ cargarEventListeners();
 function cargarEventListeners() {
      // Dispara cuando se presiona "Agregar Carrito"
      listaCursos.addEventListener('click', agregarCurso);
-
+     
      // Cuando se elimina un curso del carrito
      carrito.addEventListener('click', eliminarCurso);
 
      // Al Vaciar el carrito
      vaciarCarritoBtn.addEventListener('click', vaciarCarrito);
-
+   
 
      // NUEVO: Contenido cargado
      document.addEventListener('DOMContentLoaded', () => {
@@ -39,11 +41,11 @@ function cargarEventListeners() {
 
 // Función que añade el curso al carrito
 function agregarCurso(e) {
-     e.preventDefault();
-     // Delegation para agregar-carrito
+    
      if(e.target.classList.contains('agregar-carrito')) {
           const curso = e.target.parentElement.parentElement;
-          // Enviamos el curso seleccionado para tomar sus datos
+          curso.classList.add('borde-azul');//añadimos el borde.
+          
           leerDatosCurso(curso);
           
      }
@@ -53,13 +55,37 @@ function agregarCurso(e) {
 // Usa querySelector para encontrar los elementos que se indican
 function leerDatosCurso(curso) {
      const infoCurso = {
-          imagen: curso.querySelector('img').getAttribute('src'), //La imagen del curso
-          titulo:  curso.querySelector('h4').textContent, //el título del curso
-          precio:  curso.querySelector('.u-pull-right').textContent, //el precio con el descuento ya aplicado
-          id:  curso.querySelector('a').getAttribute('data-id'),//Vamos a buscar el data-id del curso, primero buca el elemento y luego accede al atributo
-          cantidad: 1
+         imagen: curso.querySelector('img').getAttribute('src'),
+         titulo: curso.querySelector('h4').textContent,
+         precio: curso.querySelector('.u-pull-right').textContent,
+         id: curso.querySelector('a').getAttribute('data-id'),
+         autor: curso.querySelector('p').textContent,
+         cantidad: 1
      }
-    
+ 
+
+     const autorCursoAgregado = infoCurso.autor;
+ 
+     tarjetasCursos.forEach(tarjeta => {
+         const autorTarjeta = tarjeta.querySelector('.info-card p').textContent;
+         let precioTarjeta = parseFloat(tarjeta.querySelector('.u-pull-right').textContent.replace('$', ''));
+ 
+         if (tarjeta.classList.contains('borde-azul') && precioTarjeta > 10) {
+             tarjeta.classList.remove('borde-verde');
+             precioTarjeta = Math.max(precioTarjeta - 5, 10);
+             tarjeta.querySelector('.u-pull-right').textContent = `$${precioTarjeta}`;
+         } else if (autorTarjeta === autorCursoAgregado && precioTarjeta > 10) {
+             tarjeta.classList.add('borde-verde');
+             precioTarjeta = Math.max(precioTarjeta - 5, 10);
+             tarjeta.querySelector('.u-pull-right').textContent = `$${precioTarjeta}`;
+         }
+         
+     });
+ 
+ /* else if ( autorTarjeta === autorCursoAgregado && precioTarjeta >= 10 && tarjeta.classList.contains('borde-verde')){
+               tarjeta.classList.remove('borde-verde');
+               tarjeta.classList.add('borde-azul');
+         } */
 
      if( articulosCarrito.some( curso => curso.id === infoCurso.id ) ) { 
           const cursos = articulosCarrito.map( curso => {
@@ -72,16 +98,15 @@ function leerDatosCurso(curso) {
                     return curso;
                }
           })
+         
           articulosCarrito = [...cursos];
+         
      }  else {
           articulosCarrito = [...articulosCarrito, infoCurso];
      }
 
-     console.log(articulosCarrito)
-
+ 
      
-
-     // console.log(articulosCarrito)
      carritoHTML();
 }
 
