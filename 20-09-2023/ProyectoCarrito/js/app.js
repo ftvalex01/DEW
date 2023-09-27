@@ -58,7 +58,7 @@ function agregarCurso(e) {
 // eliminar elementos de la view que no estan seleccionados.
 function eliminarCursosNoSeleccionados() {
   const cursosEnVista = document.querySelectorAll(".card");
-// si el curso no ha sido seleccionado se borra de la vista.
+  // si el curso no ha sido seleccionado se borra de la vista.
   cursosEnVista.forEach((curso) => {
     if (!curso.classList.contains("borde-azul")) {
       curso.parentElement.removeChild(curso);
@@ -69,13 +69,13 @@ function eliminarCursosNoSeleccionados() {
 }
 
 //Maneja el display del boton pagar.
-function activarBotones(){
+function activarBotones() {
   buttonPagar.classList.remove("none");
   buttonPagar.classList.add("block");
 }
 //En esta funcion se calcula el total del carrito y se inserta el elemento HTML
-function calcularTotalCarrito(){
-      //precio total a pagar
+function calcularTotalCarrito() {
+  //precio total a pagar
   let precioTotal = 0;
   articulosCarrito.forEach((element) => {
     let precioString = element.precio;
@@ -84,47 +84,46 @@ function calcularTotalCarrito(){
     precioTotal += precioCurso;
   });
   //Creamos el elemento HTML
-    let total = document.createElement("p");
-    total.textContent = `El precio total a pagar es $${precioTotal}`;
-    total.classList.add('total')
-    let footer = document.querySelector(".footer");
-    footer.insertAdjacentElement("beforebegin", total);
+  let total = document.createElement("p");
+  total.textContent = `El precio total a pagar es $${precioTotal}`;
+  total.classList.add("total");
+  let footer = document.querySelector(".footer");
+  footer.insertAdjacentElement("beforebegin", total);
 }
 //cantidad de cursos añadidos al carrito
-function cantidad(curso){
+function cantidad(curso) {
   let cantidad = parseInt(curso.cantidad);
-      cantidad++;
-      curso.cantidad = cantidad;
+  cantidad++;
+  curso.cantidad = cantidad;
 }
 //Precio del primer curso rebajado.
-function precioCurso(infoCurso){
-      let precioString = infoCurso.precio;
-      let precioNumber = parseFloat(precioString.replace("$", ""));
-      let precioDescontado = Math.max(precioNumber - 5, 10);
-      infoCurso.precio = `$${precioDescontado}`;
+function precioCurso(infoCurso) {
+  let precioString = infoCurso.precio;
+  let precioNumber = parseFloat(precioString.replace("$", ""));
+  let precioDescontado = Math.max(precioNumber - 5, 10);
+  infoCurso.precio = `$${precioDescontado}`;
 }
 //Esta funcion maneja el aplicar descuento y sus estilos.
-function descuento(tarjeta,precioTarjeta){
- //Elementos DOM
+function descuento(tarjeta, precioTarjeta) {
+  //Elementos DOM
   let descuentoTarjeta = document.createElement("p");
   let precioTachado = document.createElement("p");
-//Clases
+  //Clases
   descuentoTarjeta.textContent = "!Descuento!";
   descuentoTarjeta.classList.add("descuento");
   precioTachado.textContent = "$15";
   precioTachado.classList.add("tachado");
 
   //Comprobamos para no duplicar clases
-  if(!tarjeta.querySelector('.descuento')){
+  if (!tarjeta.querySelector(".descuento")) {
     tarjeta.appendChild(descuentoTarjeta);
   }
   precioTarjeta = Math.max(precioTarjeta - 5, 10);
   tarjeta.querySelector(".u-pull-right").textContent = `$${precioTarjeta}`;
-  tarjeta.querySelector(".u-pull-right").insertAdjacentElement("afterbegin", precioTachado);
+  tarjeta
+    .querySelector(".u-pull-right")
+    .insertAdjacentElement("afterbegin", precioTachado);
 }
-
-
-
 
 // Lee los datos del curso
 // Usa querySelector para encontrar los elementos que se indican
@@ -140,7 +139,6 @@ function leerDatosCurso(curso) {
   //guardamos en una variable el autor del curso agregado
   const autorCursoAgregado = infoCurso.autor;
 
-
   tarjetasCursos.forEach((tarjeta) => {
     const autorTarjeta = tarjeta.querySelector(".info-card p").textContent;
     let precioTarjeta = parseFloat(
@@ -150,11 +148,11 @@ function leerDatosCurso(curso) {
     //primera tarjeta picada
     if (tarjeta.classList.contains("borde-azul") && precioTarjeta > 10) {
       tarjeta.classList.remove("borde-verde");
-      descuento(tarjeta,precioTarjeta);
+      descuento(tarjeta, precioTarjeta);
       //resto tarjetas autor
     } else if (autorTarjeta === autorCursoAgregado && precioTarjeta > 10) {
       tarjeta.classList.add("borde-verde");
-      descuento(tarjeta,precioTarjeta)
+      descuento(tarjeta, precioTarjeta);
     }
   });
 
@@ -195,14 +193,23 @@ function eliminarCurso(e) {
   }
 }
 
-
+//arregla el simbolo del dolar en el carrito
+function simboloDolar() {
+  articulosCarrito.forEach((curso) => {
+    if (curso.precio === 10) {
+      let precioCursoNumero = curso.precio;
+      let preciostring = precioCursoNumero.toString(precioCursoNumero);
+      curso.precio = `$${preciostring}`;
+    }
+  });
+}
 
 // Muestra el curso seleccionado en el Carrito
 function carritoHTML() {
   vaciarCarrito();
 
   articulosCarrito.forEach((curso) => {
-    simboloDolar()
+    simboloDolar();
     const row = document.createElement("tr");
     row.innerHTML = `
                <td>  
@@ -222,16 +229,7 @@ function carritoHTML() {
   sincronizarStorage();
 }
 
-//arregla el simbolo del dolar en el carrito
-function simboloDolar(){
-  articulosCarrito.forEach((curso)=>{
-    if(curso.precio === 10){
-      let precioCursoNumero = curso.precio;
-      let preciostring = precioCursoNumero.toString(precioCursoNumero);
-      curso.precio = `$${preciostring}`;
-    }
-  })
-}
+
 
 // NUEVO:
 function sincronizarStorage() {
