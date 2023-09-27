@@ -1,13 +1,14 @@
 // Variables, debes hacer el querySelector adecuado
 
-const carrito = document.querySelector('#carrito'); //Busca el primer elemento cuyo id sea "carrito"
-const listaCursos = document.querySelector('#lista-cursos'); //Busca el primer elemento cuyo id sea "lista-cursos"
-const contenedorCarrito = document.querySelector('table > tbody'); //Busca el primer elemento tbody dentro del elemento con id lista-carrito
-const vaciarCarritoBtn = document.querySelector('#vaciar-carrito'); //Busca el primer elemento cuyo id sea vaciar-carrito
-const tarjetasCursos= document.querySelectorAll('.card'); //Busca todos los elementos cuya clase sea card
-let articulosCarrito = []; 
-
-
+const carrito = document.querySelector("#carrito"); //Busca el primer elemento cuyo id sea "carrito"
+const listaCursos = document.querySelector("#lista-cursos"); //Busca el primer elemento cuyo id sea "lista-cursos"
+const contenedorCarrito = document.querySelector("table > tbody"); //Busca el primer elemento tbody dentro del elemento con id lista-carrito
+const vaciarCarritoBtn = document.querySelector("#vaciar-carrito"); //Busca el primer elemento cuyo id sea vaciar-carrito
+const tarjetasCursos = document.querySelectorAll(".card"); //Busca todos los elementos cuya clase sea card
+let articulosCarrito = [];
+//1E
+let buttonComprarCarrito = document.querySelector("#comprar-carrito");
+let buttonPagar = document.querySelector("#pagar");
 
 /* const carrito = document.getElementById('carrito'); //Busca el primer elemento cuyo id sea "carrito"
 const listaCursos = document.getElementById('lista-cursos'); //Busca el primer elemento cuyo id sea "lista-cursos"
@@ -20,136 +21,172 @@ let articulosCarrito = []; */
 cargarEventListeners();
 
 function cargarEventListeners() {
-     // Dispara cuando se presiona "Agregar Carrito"
-     listaCursos.addEventListener('click', agregarCurso);
-     
-     // Cuando se elimina un curso del carrito
-     carrito.addEventListener('click', eliminarCurso);
+  // Dispara cuando se presiona "Agregar Carrito"
+  listaCursos.addEventListener("click", agregarCurso);
 
-     // Al Vaciar el carrito
-     vaciarCarritoBtn.addEventListener('click', vaciarCarrito);
-   
+  // Cuando se elimina un curso del carrito
+  carrito.addEventListener("click", eliminarCurso);
 
-     // NUEVO: Contenido cargado
-     document.addEventListener('DOMContentLoaded', () => {
-          articulosCarrito = JSON.parse( localStorage.getItem('carrito') ) || []  ;
-          // console.log(articulosCarrito);
-          carritoHTML();
-     });
+  // Al Vaciar el carrito
+  vaciarCarritoBtn.addEventListener("click", vaciarCarrito);
+
+  // Vaciar lista cursos
+  buttonComprarCarrito.addEventListener("click", eliminarCursosNoSeleccionados);
+  //boton de pagar
+  buttonPagar.addEventListener("click", () => {
+    alert("Servicio temporalmente inactivo, inténtelo más tarde.");
+  });
+  // NUEVO: Contenido cargado
+  document.addEventListener("DOMContentLoaded", () => {
+    articulosCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    // console.log(articulosCarrito);
+    carritoHTML();
+  });
 }
-
 
 // Función que añade el curso al carrito
 function agregarCurso(e) {
-    
-     if(e.target.classList.contains('agregar-carrito')) {
-          const curso = e.target.parentElement.parentElement;
-          curso.classList.add('borde-azul');//añadimos el borde.
-          
-          leerDatosCurso(curso);
-          
-     }
+  if (e.target.classList.contains("agregar-carrito")) {
+    const curso = e.target.parentElement.parentElement;
+    curso.classList.add("borde-azul"); //añadimos el borde.
+
+    leerDatosCurso(curso);
+  }
+}
+
+// eliminar elementos de la view que no estan seleccionados.
+function eliminarCursosNoSeleccionados() {
+  const cursosEnVista = document.querySelectorAll(".card");
+
+  cursosEnVista.forEach((curso) => {
+    if (!curso.classList.contains("borde-azul")) {
+      curso.parentElement.removeChild(curso);
+    }
+  });
+  let precioTotal = 0;
+  articulosCarrito.forEach((element) => {
+    let precioString = element.precio;
+    let precioNumero = parseFloat(precioString.replace("$", ""));
+    let precioCurso = precioNumero * element.cantidad;
+    precioTotal += precioCurso;
+  });
+  //precio total a pagar
+  let total = document.createElement("p");
+  total.textContent = `El precio total a pagar es $${precioTotal}`;
+  listaCursos.insertAdjacentElement("beforebegin", total);
+
+  buttonPagar.classList.remove("none");
+  buttonPagar.classList.add("block");
 }
 
 // Lee los datos del curso
 // Usa querySelector para encontrar los elementos que se indican
 function leerDatosCurso(curso) {
-     const infoCurso = {
-         imagen: curso.querySelector('img').getAttribute('src'),
-         titulo: curso.querySelector('h4').textContent,
-         precio: curso.querySelector('.u-pull-right').textContent,
-         id: curso.querySelector('a').getAttribute('data-id'),
-         autor: curso.querySelector('p').textContent,
-         cantidad: 1
-     }
- 
+  const infoCurso = {
+    imagen: curso.querySelector("img").getAttribute("src"),
+    titulo: curso.querySelector("h4").textContent,
+    precio: curso.querySelector(".u-pull-right").textContent,
+    id: curso.querySelector("a").getAttribute("data-id"),
+    autor: curso.querySelector("p").textContent,
+    cantidad: 1,
+  };
 
-     const autorCursoAgregado = infoCurso.autor;
- 
-     tarjetasCursos.forEach(tarjeta => {
-         const autorTarjeta = tarjeta.querySelector('.info-card p').textContent;
+  const autorCursoAgregado = infoCurso.autor;
 
-         // aplicando descuento
-         let precioTarjeta = parseFloat(tarjeta.querySelector('.u-pull-right').textContent.replace('$', ''));
-         let descuentoTarjeta = document.createElement('p');
-         descuentoTarjeta.textContent = '!Descuento!';
-         descuentoTarjeta.classList.add('descuento');
+  tarjetasCursos.forEach((tarjeta) => {
+    const autorTarjeta = tarjeta.querySelector(".info-card p").textContent;
 
-         //Precio tachado
-         let precioTachado = document.createElement('p');
-         precioTachado.textContent = '$15';
-         precioTachado.classList.add('tachado');
-         
-          //primera tarjeta picada
-         if (tarjeta.classList.contains('borde-azul') && precioTarjeta > 10) {
-             tarjeta.classList.remove('borde-verde');
-             precioTarjeta = Math.max(precioTarjeta - 5, 10);
-             tarjeta.querySelector('.u-pull-right').textContent = `$${precioTarjeta}`;
-             tarjeta.querySelector('.u-pull-right').insertAdjacentElement("afterbegin", precioTachado);
-             tarjeta.appendChild(descuentoTarjeta);
-             
-         } else if (autorTarjeta === autorCursoAgregado && precioTarjeta > 10) {
-             tarjeta.classList.add('borde-verde');
-             precioTarjeta = Math.max(precioTarjeta - 5, 10);
-             tarjeta.querySelector('.u-pull-right').textContent = `$${precioTarjeta}`;
-             tarjeta.querySelector('.u-pull-right').insertAdjacentElement("afterbegin", precioTachado);
-             tarjeta.appendChild(descuentoTarjeta);
-         }
-         
-     });
- 
- /* else if ( autorTarjeta === autorCursoAgregado && precioTarjeta >= 10 && tarjeta.classList.contains('borde-verde')){
+    // aplicando descuento
+    let precioTarjeta = parseFloat(
+      tarjeta.querySelector(".u-pull-right").textContent.replace("$", "")
+    );
+    let descuentoTarjeta = document.createElement("p");
+    descuentoTarjeta.textContent = "!Descuento!";
+    descuentoTarjeta.classList.add("descuento");
+
+    //Precio tachado
+    let precioTachado = document.createElement("p");
+    precioTachado.textContent = "$15";
+    precioTachado.classList.add("tachado");
+
+    //primera tarjeta picada
+    if (tarjeta.classList.contains("borde-azul") && precioTarjeta > 10) {
+      tarjeta.classList.remove("borde-verde");
+      precioTarjeta = Math.max(precioTarjeta - 5, 10);
+      tarjeta.querySelector(".u-pull-right").textContent = `$${precioTarjeta}`;
+      tarjeta
+        .querySelector(".u-pull-right")
+        .insertAdjacentElement("afterbegin", precioTachado);
+      tarjeta.appendChild(descuentoTarjeta);
+      //resto tarjetas autor
+    } else if (autorTarjeta === autorCursoAgregado && precioTarjeta > 10) {
+      tarjeta.classList.add("borde-verde");
+      precioTarjeta = Math.max(precioTarjeta - 5, 10);
+      tarjeta.querySelector(".u-pull-right").textContent = `$${precioTarjeta}`;
+      tarjeta
+        .querySelector(".u-pull-right")
+        .insertAdjacentElement("afterbegin", precioTachado);
+      tarjeta.appendChild(descuentoTarjeta);
+    }
+  });
+
+  /* else if ( autorTarjeta === autorCursoAgregado && precioTarjeta >= 10 && tarjeta.classList.contains('borde-verde')){
                tarjeta.classList.remove('borde-verde');
                tarjeta.classList.add('borde-azul');
          } */
 
-     if( articulosCarrito.some( curso => curso.id === infoCurso.id ) ) { 
-          const cursos = articulosCarrito.map( curso => {
-               if( curso.id === infoCurso.id ) {
-                    let cantidad = parseInt(curso.cantidad);
-                    cantidad++
-                    curso.cantidad =  cantidad;
-                    return curso;
-               } else {
-                    return curso;
-               }
-          })
-         
-          articulosCarrito = [...cursos];
-         
-     }  else {
-          articulosCarrito = [...articulosCarrito, infoCurso];
-     }
+  if (articulosCarrito.some((curso) => curso.id === infoCurso.id)) {
+    const cursos = articulosCarrito.map((curso) => {
+      if (curso.id === infoCurso.id) {
+        //modificando la cantidad
+        let cantidad = parseInt(curso.cantidad);
+        cantidad++;
+        curso.cantidad = cantidad;
+        //modificando el precio
+        let precioString = infoCurso.precio;
+        let precioNumber = parseFloat(precioString.replace("$", ""));
+        let precioDescontado = Math.max(precioNumber - 5, 10);
+        curso.precio = precioDescontado;
+        return curso;
+      } else {
+        return curso;
+      }
+    });
 
- 
-     
-     carritoHTML();
+    articulosCarrito = [...cursos];
+  } else {
+    let precioString = infoCurso.precio;
+    let precioNumber = parseFloat(precioString.replace("$", ""));
+    let precioDescontado = Math.max(precioNumber - 5, 10);
+    infoCurso.precio = `$${precioDescontado}`;
+    articulosCarrito = [...articulosCarrito, infoCurso];
+  }
+
+  carritoHTML();
 }
 
 // Elimina el curso del carrito en el DOM
 function eliminarCurso(e) {
-     e.preventDefault();
-     if(e.target.classList.contains('borrar-curso') ) {
-          // e.target.parentElement.parentElement.remove();
-          const curso = e.target.parentElement.parentElement;
-          const cursoId = curso.querySelector('a').getAttribute('data-id');
-          
-          // Eliminar del arreglo del carrito
-          articulosCarrito = articulosCarrito.filter(curso => curso.id !== cursoId);
+  e.preventDefault();
+  if (e.target.classList.contains("borrar-curso")) {
+    // e.target.parentElement.parentElement.remove();
+    const curso = e.target.parentElement.parentElement;
+    const cursoId = curso.querySelector("a").getAttribute("data-id");
 
-          carritoHTML();
-     }
+    // Eliminar del arreglo del carrito
+    articulosCarrito = articulosCarrito.filter((curso) => curso.id !== cursoId);
+
+    carritoHTML();
+  }
 }
-
 
 // Muestra el curso seleccionado en el Carrito
 function carritoHTML() {
+  vaciarCarrito();
 
-     vaciarCarrito();
-
-     articulosCarrito.forEach(curso => {
-          const row = document.createElement('tr');
-          row.innerHTML = `
+  articulosCarrito.forEach((curso) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
                <td>  
                     <img src="${curso.imagen}" width=100>
                </td>
@@ -160,26 +197,22 @@ function carritoHTML() {
                     <a href="#" class="borrar-curso" data-id="${curso.id}">X</a>
                </td>
           `;
-          contenedorCarrito.appendChild(row);
-     });
+    contenedorCarrito.appendChild(row);
+  });
 
-     // NUEVO:
-     sincronizarStorage();
-
+  // NUEVO:
+  sincronizarStorage();
 }
 
-
-// NUEVO: 
+// NUEVO:
 function sincronizarStorage() {
-     localStorage.setItem('carrito', JSON.stringify(articulosCarrito));
-    
+  localStorage.setItem("carrito", JSON.stringify(articulosCarrito));
 }
 
 // Elimina los cursos del carrito en el DOM
 function vaciarCarrito() {
-     // forma rapida (recomendada)
-     while(contenedorCarrito.firstChild) {
-          contenedorCarrito.removeChild(contenedorCarrito.firstChild);      
-     }
-      
+  while (contenedorCarrito.firstChild) {
+    contenedorCarrito.removeChild(contenedorCarrito.firstChild);
+  }
 }
+

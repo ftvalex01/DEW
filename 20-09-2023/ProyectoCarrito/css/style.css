@@ -13,5 +13,14 @@
     padding: 5px;
 }
 .tachado{
-    text-decoration: line-through;
+    text-decoration:3px rgb(192, 10, 10) line-through;
+    
+}
+.block{
+    display: block;
+    background-color: chartreuse;
+    
+}
+.none{
+    display: none;
 }
