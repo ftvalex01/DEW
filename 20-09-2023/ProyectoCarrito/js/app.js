@@ -117,7 +117,9 @@ function leerDatosCurso(curso) {
       tarjeta
         .querySelector(".u-pull-right")
         .insertAdjacentElement("afterbegin", precioTachado);
-      tarjeta.appendChild(descuentoTarjeta);
+        if(!tarjeta.querySelector('.descuento')){
+          tarjeta.appendChild(descuentoTarjeta);
+        }
       //resto tarjetas autor
     } else if (autorTarjeta === autorCursoAgregado && precioTarjeta > 10) {
       tarjeta.classList.add("borde-verde");
@@ -126,7 +128,9 @@ function leerDatosCurso(curso) {
       tarjeta
         .querySelector(".u-pull-right")
         .insertAdjacentElement("afterbegin", precioTachado);
-      tarjeta.appendChild(descuentoTarjeta);
+        if(!tarjeta.querySelector('.descuento')){
+          tarjeta.appendChild(descuentoTarjeta);
+        }
     }
   });
 
