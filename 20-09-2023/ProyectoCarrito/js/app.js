@@ -134,10 +134,6 @@ function leerDatosCurso(curso) {
     }
   });
 
-  /* else if ( autorTarjeta === autorCursoAgregado && precioTarjeta >= 10 && tarjeta.classList.contains('borde-verde')){
-               tarjeta.classList.remove('borde-verde');
-               tarjeta.classList.add('borde-azul');
-         } */
 
   if (articulosCarrito.some((curso) => curso.id === infoCurso.id)) {
     const cursos = articulosCarrito.map((curso) => {
@@ -153,6 +149,7 @@ function leerDatosCurso(curso) {
         curso.precio = precioDescontado;
         return curso;
       } else {
+        
         return curso;
       }
     });
@@ -189,6 +186,12 @@ function carritoHTML() {
   vaciarCarrito();
 
   articulosCarrito.forEach((curso) => {
+    if(curso.precio === 10){
+      let precioCursoNumero = curso.precio;
+      let preciostring = precioCursoNumero.toString(precioCursoNumero);
+      curso.precio = `$${preciostring}`;
+    }
+    
     const row = document.createElement("tr");
     row.innerHTML = `
                <td>  
