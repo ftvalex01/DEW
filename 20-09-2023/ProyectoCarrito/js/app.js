@@ -7,6 +7,9 @@ const contenedorCarrito = document.querySelector("table > tbody"); //Busca el pr
 const vaciarCarritoBtn = document.querySelector("#vaciar-carrito"); //Busca el primer elemento cuyo id sea vaciar-carrito
 const tarjetasCursos = document.querySelectorAll(".card"); //Busca todos los elementos cuya clase sea card
 let articulosCarrito = [];
+
+
+
 //1E
 let buttonComprarCarrito = document.querySelector("#comprar-carrito");
 let buttonPagar = document.querySelector("#pagar");
@@ -136,7 +139,32 @@ function leerDatosCurso(curso) {
     autor: curso.querySelector("p").textContent,
     cantidad: 1,
   };
-  //guardamos en una variable el autor del curso agregado
+
+  if (articulosCarrito.some((curso) => curso.id === infoCurso.id)) {
+    const cursos = articulosCarrito.map((curso) => {
+      if (curso.id === infoCurso.id) {
+        //modificando la cantidad
+        cantidad(curso);
+        //modificando el precio
+        precioCurso(infoCurso);
+        return curso;
+      } else {
+        return curso;
+      }
+    });
+    pintarBordes(infoCurso);
+    articulosCarrito = [...cursos];
+  } else {
+    precioCurso(infoCurso);
+    pintarBordes(infoCurso);
+    articulosCarrito = [...articulosCarrito, infoCurso];
+  }
+
+  carritoHTML();
+}
+
+//funcion encargada de marcar los bordes de las tarjetas
+function pintarBordes(infoCurso) {
   const autorCursoAgregado = infoCurso.autor;
 
   tarjetasCursos.forEach((tarjeta) => {
@@ -155,41 +183,44 @@ function leerDatosCurso(curso) {
       descuento(tarjeta, precioTarjeta);
     }
   });
+}
+// funcion para la eliminacion de bordes , precio y descuento cuando se elimina del carrito
+function verificarAutores() {
+  tarjetasCursos.forEach((tarjeta) => {
+    const autorTarjeta = tarjeta.querySelector(".info-card p").textContent;
 
-  if (articulosCarrito.some((curso) => curso.id === infoCurso.id)) {
-    const cursos = articulosCarrito.map((curso) => {
-      if (curso.id === infoCurso.id) {
-        //modificando la cantidad
-        cantidad(curso);
-        //modificando el precio
-        precioCurso(infoCurso);
-        return curso;
-      } else {
-        return curso;
+    const precioTachado = tarjeta.querySelector(".tachado");
+    if (!articulosCarrito.some((curso) => curso.autor === autorTarjeta)) {
+      tarjeta.classList.remove("borde-azul");
+      tarjeta.classList.remove("borde-verde");
+    }
+    
+    const descuentoTarjeta = tarjeta.querySelector(".descuento");
+      if (descuentoTarjeta) {
+        tarjeta.removeChild(descuentoTarjeta); 
       }
-    });
-
-    articulosCarrito = [...cursos];
-  } else {
-    precioCurso(infoCurso);
-    articulosCarrito = [...articulosCarrito, infoCurso];
-  }
-
-  carritoHTML();
+       if (precioTachado) {
+        tarjeta.querySelector(".u-pull-right").textContent = '$15';
+        tarjeta.classList.remove("tachado");
+      }
+   
+  });
 }
 
 // Elimina el curso del carrito en el DOM
 function eliminarCurso(e) {
   e.preventDefault();
+
   if (e.target.classList.contains("borrar-curso")) {
     // e.target.parentElement.parentElement.remove();
     const curso = e.target.parentElement.parentElement;
-    const cursoId = curso.querySelector("a").getAttribute("data-id");
 
-    // Eliminar del arreglo del carrito
+    const cursoId = curso.querySelector("a").getAttribute("data-id");
+    /* quitarBordes(cursoId); */
     articulosCarrito = articulosCarrito.filter((curso) => curso.id !== cursoId);
 
     carritoHTML();
+    verificarAutores(); 
   }
 }
 
@@ -207,6 +238,7 @@ function simboloDolar() {
 // Muestra el curso seleccionado en el Carrito
 function carritoHTML() {
   vaciarCarrito();
+
 
   articulosCarrito.forEach((curso) => {
     simboloDolar();
@@ -229,8 +261,6 @@ function carritoHTML() {
   sincronizarStorage();
 }
 
-
-
 // NUEVO:
 function sincronizarStorage() {
   localStorage.setItem("carrito", JSON.stringify(articulosCarrito));
@@ -242,4 +272,6 @@ function vaciarCarrito() {
     contenedorCarrito.removeChild(contenedorCarrito.firstChild);
   }
 }
+
+
 
