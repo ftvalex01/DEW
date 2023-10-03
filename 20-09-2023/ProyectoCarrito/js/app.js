@@ -1,3 +1,11 @@
+/* ESTE ARCHIVO NO SE USA FUE EL PRIMERO 
+ANTES DE SEPARAR EL CODIGO EN ARCHIVOS JS INDEPENDIENTES
+*/
+
+
+
+
+
 "use strict";
 // Variables, debes hacer el querySelector adecuado
 
