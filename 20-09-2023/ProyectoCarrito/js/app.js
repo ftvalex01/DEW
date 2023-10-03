@@ -14,6 +14,8 @@ let articulosCarrito = [];
 let buttonComprarCarrito = document.querySelector("#comprar-carrito");
 let buttonPagar = document.querySelector("#pagar");
 
+
+
 /* const carrito = document.getElementById('carrito'); //Busca el primer elemento cuyo id sea "carrito"
 const listaCursos = document.getElementById('lista-cursos'); //Busca el primer elemento cuyo id sea "lista-cursos"
 const contenedorCarrito = document.getElementsByTagName('tbody')[0]; //Busca el primer elemento tbody dentro del elemento con id lista-carrito
@@ -61,18 +63,24 @@ function agregarCurso(e) {
 // eliminar elementos de la view que no estan seleccionados.
 function eliminarCursosNoSeleccionados() {
   const cursosEnVista = document.querySelectorAll(".card");
-  // si el curso no ha sido seleccionado se borra de la vista.
   cursosEnVista.forEach((curso) => {
     if (!curso.classList.contains("borde-azul")) {
       curso.parentElement.removeChild(curso);
+    } else {
+      let botonAgregar = curso.querySelector(".agregar-carrito");
+      botonAgregar.classList.add("disabled");
     }
   });
+
   calcularTotalCarrito();
   activarBotones();
+  
 }
+
 
 //Maneja el display del boton pagar.
 function activarBotones() {
+
   buttonPagar.classList.remove("none");
   buttonPagar.classList.add("block");
 }
@@ -100,12 +108,23 @@ function cantidad(curso) {
   curso.cantidad = cantidad;
 }
 //Precio del primer curso rebajado.
+const cursosPorAutor = {};
 function precioCurso(infoCurso) {
-  let precioString = infoCurso.precio;
-  let precioNumber = parseFloat(precioString.replace("$", ""));
-  let precioDescontado = Math.max(precioNumber - 5, 10);
-  infoCurso.precio = `$${precioDescontado}`;
+  const autor = infoCurso.autor;
+
+  if (!cursosPorAutor[autor]) {
+    infoCurso.precio = "$15";
+    cursosPorAutor[autor] = {
+      precio: "$15",
+      cantidad: 1,
+    };
+  } else {
+    infoCurso.precio = "$10";
+    cursosPorAutor[autor].cantidad++;
+  }
 }
+
+
 //Esta funcion maneja el aplicar descuento y sus estilos.
 function descuento(tarjeta, precioTarjeta) {
   //Elementos DOM
@@ -139,7 +158,7 @@ function leerDatosCurso(curso) {
     autor: curso.querySelector("p").textContent,
     cantidad: 1,
   };
-
+  
   if (articulosCarrito.some((curso) => curso.id === infoCurso.id)) {
     const cursos = articulosCarrito.map((curso) => {
       if (curso.id === infoCurso.id) {
@@ -153,6 +172,7 @@ function leerDatosCurso(curso) {
       }
     });
     pintarBordes(infoCurso);
+
     articulosCarrito = [...cursos];
   } else {
     precioCurso(infoCurso);
@@ -216,11 +236,16 @@ function eliminarCurso(e) {
     const curso = e.target.parentElement.parentElement;
 
     const cursoId = curso.querySelector("a").getAttribute("data-id");
+  
+    
+
     /* quitarBordes(cursoId); */
     articulosCarrito = articulosCarrito.filter((curso) => curso.id !== cursoId);
+   
 
     carritoHTML();
     verificarAutores(); 
+    
   }
 }
 
@@ -241,7 +266,8 @@ function carritoHTML() {
 
 
   articulosCarrito.forEach((curso) => {
-    simboloDolar();
+   
+
     const row = document.createElement("tr");
     row.innerHTML = `
                <td>  
@@ -274,4 +300,40 @@ function vaciarCarrito() {
 }
 
 
+/* 
+console.log(listaCursos);
+console.log(listaCursos.parentNode);
+console.log(listaCursos.parentNode.parentNode);
 
+console.log(listaCursos.parentElement);
+console.log(listaCursos.parentElement.parentElement);
+
+const row = listaCursos.parentElement.parentElement;
+
+console.log(row.children);
+console.log(row.childNodes);
+
+console.log(row.nextElementSibling);
+console.log(row.nextElementSibling.nextElementSibling);
+
+
+const row3 = row.nextElementSibling.nextElementSibling;
+console.log(row3.previousSibling);
+console.log(row3.previousElementSibling.previousElementSibling);
+
+console.log(document.querySelector('#lista-cursos'));
+console.log(document.querySelector('#lista-cursos :nth-child(4)'));
+console.log(document.querySelector('#lista-cursos :nth-child(3)'));
+console.log(document.querySelector('#lista-cursos :nth-child(2)'));
+
+
+console.log(document.querySelector('.row'));
+console.log(document.querySelector('.row:nth-child(1)'));
+console.log(document.querySelector('.row:nth-child(2)'));
+console.log(document.querySelector('.row:nth-child(3)'));
+
+console.log(listaCursos2);
+console.log(listaCursos2.firstChild);
+console.log(listaCursos2.firstElementChild);
+console.log(listaCursos2.lastElementChild);
+ */

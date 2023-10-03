@@ -31,3 +31,8 @@
     font-size: 32px;
     font-weight: bold;
 }
+.disabled {
+    pointer-events: none; 
+    opacity: 0.6; 
+    
+  }
