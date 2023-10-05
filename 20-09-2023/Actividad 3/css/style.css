@@ -1,0 +1,38 @@
+.borde-azul{
+    border: 3px solid blue;
+}
+.borde-verde{
+    border:3px solid green;
+}
+.descuento{
+    display: block;
+    align-items: center;
+    text-align: center;
+    color: white;
+    background-color: red;
+    padding: 5px;
+}
+.tachado{
+    text-decoration:3px rgb(192, 10, 10) line-through;
+    
+}
+.block{
+    display: block;
+    background-color: chartreuse;
+    
+}
+.none{
+    display: none;
+}
+.total{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: bold;
+}
+.disabled {
+    pointer-events: none; 
+    opacity: 0.6; 
+    
+  }
