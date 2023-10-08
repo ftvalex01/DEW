@@ -5,16 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/style.css">
     <title>ventana</title>
+
 </head>
 <body>
-    <div class="form">
-        <p>width actual:<span id="width-actual"></span></p>
-        <p>height actual:<span id="height-actual"></span></p>
-        <label for="width">width</label>
-        <input type="text" id="width" name="width">
-        <label for="heigth">heigth</label>
-        <input type="text" id="height" name="height">
+    <div class="container">
+        <h1>Actividad 4. Modificación del BOM</h1>
+        <div class="form">
+            <p>width actual:<span id="width-actual"></span></p>
+            <p>height actual:<span id="height-actual"></span></p>
+            <label for="width">width</label>
+            <input type="text" id="width" name="width">
+            <span id="width-error-message" class="error-message"></span>
+            <label for="heigth">heigth</label>
+            <input type="text" id="height" name="height">
+            <span id="height-error-message" class="error-message"></span>
+            <label for="color">Color (Hexadecimal):</label>
+            <input type="text" id="color" name="color" pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$">
+            <span id="hexadecimal-error-message" class="error-message"></span>
+        </div>
     </div>
+   
     
     
     <script src="./javascript/index.js"></script>
