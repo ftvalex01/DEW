@@ -3,9 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fechasz</title>
+    <link rel="stylesheet" href="./styles/index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    <title>Fechas</title>
 </head>
 <body>
-    
+    <h1>Librerías para Fechas</h1>
+    <h3>MomentJS</h3>
+    <form id="formulario">
+      Ingrese su fecha de nacimiento: <input type="date" name="date" id="date">
+      <br>
+      Ingrese su nombre completo: <input type="text" maxlength="50" name="nombre" id="nombre" pattern="[A-Za-z ]+" title="Ingrese solo letras y espacios">
+      <br>
+      <input type="submit" value="Calcular Edad">
+    </form>
+    <div id="resultado"></div>
+    <script src="./javascript/index.js"></script>
 </body>
 </html>
