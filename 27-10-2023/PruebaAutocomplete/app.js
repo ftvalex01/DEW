@@ -21,6 +21,20 @@ function init() {
   });
 }
 
+function marcarCoincidencias(textoCompleto, inputUser) {
+  const inputLower = inputUser.toLowerCase();
+  const partesTexto = textoCompleto.split(new RegExp(`(${inputUser})`, 'i'));
+  return partesTexto.map(part => {
+      if (part.toLowerCase() === inputLower) {
+          return `<strong>${part}</strong>`;
+      } else {
+          return part;
+      }
+  }).join('');
+} 
+
+
+
 function autocomplete(event) {
   const value = inputElem.value;
   if (!value) {
@@ -33,16 +47,17 @@ function autocomplete(event) {
   });
 
   resultsElem.innerHTML = results
-    .map((result, index) => {
-      const isSelected = index === 0;
-      return `
+  .map((result, index) => {
+    const isSelected = index === 0;
+     
+    return `
         <li
           id='autocomplete-result-${index}'
           class='autocomplete-result${isSelected ? " selected" : ""}'
           role='option'
           ${isSelected ? "aria-selected='true'" : ""}
         >
-        ${result.name.common}
+        ${marcarCoincidencias(result['name']['common'],value)}
         </li>
       `;
     })
@@ -91,5 +106,7 @@ function hideResults() {
   this.resultsElem.innerHTML = "";
   this.resultsElem.classList.add("hidden");
 }
+
+
 
 init();
