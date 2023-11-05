@@ -13,11 +13,8 @@ function init() {
   resultsElem.addEventListener("click", (event) => {
     handleResultClick(event);
   });
-  inputElem.addEventListener("input", (event) => {
-    autocomplete(event);
-  });
   inputElem.addEventListener("keyup", (event) => {
-    handleResultKeyDown(event);
+      autocomplete(event);
   });
 }
 
@@ -43,13 +40,12 @@ function autocomplete(event) {
     return;
   }
   const results = countries.filter((country) => {
-    return country.name.common.toLowerCase().startsWith(value.toLowerCase());
-  });
+    return country.name.common.toLowerCase().includes(value.toLowerCase());
+  })
 
   resultsElem.innerHTML = results
   .map((result, index) => {
     const isSelected = index === 0;
-     
     return `
         <li
           id='autocomplete-result-${index}'
@@ -64,6 +60,7 @@ function autocomplete(event) {
     .join("");
   resultsElem.classList.remove("hidden");
 }
+
 
 
 function handleResultClick() {
