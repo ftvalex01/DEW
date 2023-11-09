@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const messageForm = document.getElementById("message-form");
-    const messageText = document.getElementById("message-text");
-    const messageList = document.getElementById("message-list");
+    const tweetForm = document.getElementById("message-form");
+    const tweetText = document.getElementById("message-text");
+    const listaTweets = document.getElementById("message-list");
 
-    messageForm.addEventListener("submit", function (e) {
+    tweetForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        const tweet = messageText.value.trim();
+        const tweet = tweetText.value.trim();
 
         if (tweet === "") {
             alert("Debe introducir el texto a añadir");
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("messages", JSON.stringify(messages));
 
         // Limpiar el formulario
-        messageText.value = "";
+        tweetText.value = "";
 
         // Mostrar el mensaje en la lista
         displayMessage(tweetObj);
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ${tweetObj.texto}
             <span class="delete-button" data-id="${tweetObj.id}">X</span>
         `;
-        messageList.appendChild(listItem);
+        listaTweets.appendChild(listItem);
 
         // Agregar evento para borrar mensajes
         const deleteButton = listItem.querySelector(".delete-button");
