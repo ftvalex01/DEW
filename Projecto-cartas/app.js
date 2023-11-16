@@ -183,116 +183,150 @@ function createDorso() {
 }
 
 function flipCard(card, value) {
-  if (flippedCards.length === 2 || card === flippedCards[0] || card.getAttribute('data-match') === 'true') {
-    return;
-  }
-
-  const isFlipped = card.getAttribute('data-flipped') === 'true';
-
-  if (!isFlipped) {
-    card.setAttribute('data-flipped', 'true');
-    flippedCards.push(card);
-
-    const cardValue = value;
-
-    const anverso = document.createElement('div');
-    anverso.classList.add('anverso');
-
-    const anversoImage = document.createElement('img');
-    anversoImage.src = cartasArray[cardValue].imagen;
-    anverso.appendChild(anversoImage);
-
-    card.querySelector('.card-container').appendChild(anverso);
-
-    if (flippedCards.length === 2) {
-      clicks++;
-      clicksElement.textContent = clicks;
-
-      const image1 = flippedCards[0].querySelector('.anverso img').src;
-      const image2 = flippedCards[1].querySelector('.anverso img').src;
-
-      if (image1 === image2) {
-        matches++;
-        matchesElement.textContent = matches;
-        flippedCards.forEach((matchedCard) => {
-          matchedCard.setAttribute('data-match', 'true');
-          matchedCard.classList.add('matched');
-        });
-        flippedCards = [];
-        numPairs++;
-
-        mostrarCuadro(cartasArray[cardValue].nombre, cartasArray[cardValue].descripcion, cartasArray[cardValue].imagen);
-
-        setTimeout(() => {
-          ocultarCuadro();
-        }, 8000);
-
-        if (numPairs === numCardsInput.value / 2) {
-          alert('¡Felicidades! Has ganado el juego.');
-          handleGameEnd();
-        }
-      } else {
-        setTimeout(() => {
-          flippedCards.forEach((flippedCard) => {
-            flippedCard.setAttribute('data-flipped', 'false');
-            flippedCard.removeAttribute('data-match');
-            flippedCard.classList.remove('matched');
-            const anverso = flippedCard.querySelector('.anverso');
-            flippedCard.querySelector('.card-container').removeChild(anverso);
+    if (flippedCards.length === 2 || card === flippedCards[0] || card.getAttribute('data-match') === 'true') {
+      return;
+    }
+  
+    const isFlipped = card.getAttribute('data-flipped') === 'true';
+  
+    if (!isFlipped) {
+      card.setAttribute('data-flipped', 'true');
+      flippedCards.push(card);
+  
+      const cardValue = value;
+  
+      const anverso = document.createElement('div');
+      anverso.classList.add('anverso');
+  
+      const anversoImage = document.createElement('img');
+      anversoImage.src = cartasArray[cardValue].imagen;
+      anverso.appendChild(anversoImage);
+  
+      card.querySelector('.card-container').appendChild(anverso);
+  
+      if (flippedCards.length === 2) {
+        clicks++;
+        clicksElement.textContent = clicks;
+  
+        const image1 = flippedCards[0].querySelector('.anverso img').src;
+        const image2 = flippedCards[1].querySelector('.anverso img').src;
+  
+        if (image1 === image2) {
+          matches++;
+          matchesElement.textContent = matches;
+          flippedCards.forEach((matchedCard) => {
+            matchedCard.setAttribute('data-match', 'true');
+            matchedCard.classList.add('matched');
           });
           flippedCards = [];
-        }, 2000);
+          numPairs++;
+  
+          mostrarCuadro(cartasArray[cardValue].nombre, cartasArray[cardValue].descripcion, cartasArray[cardValue].imagen);
+  
+          if (numPairs === numCardsInput.value / 2) {
+            // Retraso antes de llamar a handleGameEnd para mostrar la información de la última carta
+            setTimeout(() => {
+              handleGameEnd();
+            }, 1000);
+          }
+        } else {
+          setTimeout(() => {
+            flippedCards.forEach((flippedCard) => {
+              flippedCard.setAttribute('data-flipped', 'false');
+              flippedCard.removeAttribute('data-match');
+              flippedCard.classList.remove('matched');
+              const anverso = flippedCard.querySelector('.anverso');
+              flippedCard.querySelector('.card-container').removeChild(anverso);
+            });
+            flippedCards = [];
+          }, 2000);
+        }
       }
     }
   }
-}
-
+  
 function mostrarCuadro(nombre, texto, imagenSrc) {
-  clearInterval(timerInterval);
-  isModalOpen = true;
+    clearInterval(timerInterval);
+    isModalOpen = true;
+  
+    showText.innerHTML = `
+      <div class="modal-content">
+        <h4>${nombre}</h4>
+        <p>${texto}</p>
+        <img src="${imagenSrc}" class="modal-image">
+        <button class="close-btn" style="display: none;">Cerrar Cuadro</button>
+      </div>
+    `;
+  
+    // Mostrar el botón después de 8 segundos.
+    setTimeout(() => {
+      const closeBtn = showText.querySelector('.close-btn');
+      closeBtn.style.display = 'block';
+      closeBtn.onclick = ocultarCuadro;
+    }, 8000);
+  
+    showText.style.display = 'block';
+    overlay.style.display = 'block';
+  }
+  
+  
+  // ...
+  
+ 
+  
 
-  showText.innerHTML = `
-    <span class="close-btn" onclick="ocultarCuadro()">X</span>
-    <h4>${nombre}</h4>
-    <p>${texto}</p>
-    <img src="${imagenSrc}" class="modal-image">
-  `;
-  showText.style.display = 'block';
-
-  overlay.style.display = 'block';
-}
-
-function ocultarCuadro() {
-  showText.style.display = 'none';
-  showText.innerHTML = '';
-
-  overlay.style.display = 'none';
-
-  if (!isModalOpen) {
-    startTimer();
+  
+  
+  function ocultarCuadro() {
+    showText.style.display = 'none';
+    showText.innerHTML = '';
+  
+    overlay.style.display = 'none';
+  
+    if (!isModalOpen) {
+      startTimer();
+    }
+  
+    isModalOpen = false;
   }
 
-  isModalOpen = false;
-}
-
-function handleGameEnd() {
-  // Actualizar el récord si es mejor que el récord existente.
-  if (
-    clicks < bestRecord.attempts ||
-    (clicks === bestRecord.attempts && matches > bestRecord.matches) ||
-    (clicks === bestRecord.attempts && matches === bestRecord.matches && currentRecord.time < bestRecord.time)
-  ) {
-    bestRecord = {
-      attempts: clicks,
-      matches: matches,
-      time: currentRecord.time,
-    };
-
-    // Guardar el nuevo récord en localStorage.
-    localStorage.setItem('bestRecord', JSON.stringify(bestRecord));
+  function handleGameEnd() {
+    // Verificar si todas las cartas se han emparejado
+    if (numPairs === numCardsInput.value / 2) {
+      // Obtener la información de la última carta
+      const lastCardInfo = cartasArray[cardValues[cardValues.length - 1]];
+  
+      // Mostrar la información de la última carta
+      mostrarCuadro(lastCardInfo.nombre, lastCardInfo.descripcion, lastCardInfo.imagen);
+  
+      // Esperar unos segundos antes de mostrar el mensaje de victoria
+      setTimeout(() => {
+        // Actualizar el récord si es mejor que el récord existente.
+        if (
+          clicks < bestRecord.attempts ||
+          (clicks === bestRecord.attempts && matches > bestRecord.matches) ||
+          (clicks === bestRecord.attempts && matches === bestRecord.matches && currentRecord.time < bestRecord.time)
+        ) {
+          bestRecord = {
+            attempts: clicks,
+            matches: matches,
+            time: currentRecord.time,
+          };
+  
+          // Guardar el nuevo récord en localStorage.
+          localStorage.setItem('bestRecord', JSON.stringify(bestRecord));
+        }
+  
+        // Mostrar el mensaje de victoria
+        alert('¡Felicidades! Has ganado el juego.');
+        updateRecord(); // Mostrar récord final
+      }, 8000); // Ajusta el tiempo según tus necesidades
+    } else {
+      // Si no todas las cartas se han emparejado, actualizar el récord sin esperar
+      updateRecord(); // Mostrar récord final
+    }
   }
-  updateRecord(); // Mostrar récord final
-}
+  
 
 function updateRecord() {
   recordAttempts.textContent = bestRecord.attempts === Infinity ? '-' : bestRecord.attempts;
@@ -305,4 +339,5 @@ function updateRecord() {
 
 
 
-     
+
+

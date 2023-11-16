@@ -1,37 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de Memoria</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <h1>Juego de Memoria</h1>
-    <div class="options">
-        <label for="numCards">Número de Cartas (Par): </label>
-        <input type="number" id="numCards" min="2" step="2" max="20" value="2">
-        <button id="startGame">Comenzar Juego</button>
-    </div>
-    
-    <div class="record">
-        <p><strong>Record</strong></p>
-        <p>Intentos: <span id="recordAttempts">-</span></p>
-        <p>Aciertos: <span id="recordMatches">-</span></p>
-        <p>Tiempo: <span id="recordTime">-</span></p>
-    </div>
-    <div class="info">
-        <p>Clics: <span id="clicks">0</span></p>
-        <p>Aciertos: <span id="matches">0</span></p>
-        <p>Tiempo: <span id="time">0</span></p>
-    </div>
-    
 
-   
+    <div class="navbar">
+        
+       
+        <div class="info">
+            <p><strong>Partida</strong></p>
+            <p>Clics: <span id="clicks">0</span></p>
+            <p>Aciertos: <span id="matches">0</span></p>
+            <p>Tiempo: <span id="time">0</span></p>
+        </div>
+        <div class="options">
+            <label for="numCards">Número de Cartas (Par): </label>
+            <input type="number" id="numCards" min="2" step="2" max="20" value="2">
+            <button id="startGame">Comenzar Juego</button>
+        </div>
+        
+        <div class="record">
+            <p><strong>Record</strong></p>
+            <p>Intentos: <span id="recordAttempts">-</span></p>
+            <p>Aciertos: <span id="recordMatches">-</span></p>
+            <p>Tiempo: <span id="recordTime">-</span></p>
+        </div>
+    </div>
+
     <div class="memory-board"></div>
     <div id="showText" class="showText"></div>
     <div class="overlay"></div>
     <script src="app.js"></script>
 </body>
-</html>
 
+</html>
