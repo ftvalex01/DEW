@@ -256,3 +256,35 @@ button:hover {
 }
 
 /* ... (otros estilos) */
+/* ... (estilos globales y otros estilos) */
+
+/* Icono de ayuda */
+.help-icon {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.help-icon span {
+    font-size: 24px;
+    color: #fff;
+}
+
+.tooltip {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background: #3498db;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.help-icon:hover .tooltip {
+    display: block;
+}
+
+/* ... (otros estilos) */
