@@ -240,7 +240,7 @@ button:hover {
     display: none;
     z-index: 1;
 }
-/* ... (estilos globales y otros estilos) */
+
 
 /* Tablero de memoria para pantallas de móviles */
 @media screen and (max-width: 768px) {
@@ -251,12 +251,10 @@ button:hover {
 
     .card {
         width: 100%;
-        height: 120px;  /* Ajusta el valor según sea necesario */
+        height: 120px;  
     }
 }
 
-/* ... (otros estilos) */
-/* ... (estilos globales y otros estilos) */
 
 /* Icono de ayuda */
 .help-icon {
@@ -287,4 +285,4 @@ button:hover {
     display: block;
 }
 
-/* ... (otros estilos) */
+
