@@ -238,7 +238,7 @@ function createDorso() {
 }
 
 // Función para mostrar un cuadro modal
-function mostrarCuadro(nombre, texto, imagenSrc) {
+function showInfo(nombre, texto, imagenSrc) {
   isModalOpen = true;
 
   // Pausa el temporizador al abrir el modal
@@ -262,7 +262,7 @@ function mostrarCuadro(nombre, texto, imagenSrc) {
   setTimeout(() => {
       const closeBtn = showText.querySelector('.close-btn');
       closeBtn.style.display = 'block';
-      closeBtn.onclick = () => ocultarCuadro(elapsedTime); // Pasa el tiempo transcurrido
+      closeBtn.onclick = () => hideInfo(elapsedTime); // Pasa el tiempo transcurrido
   }, 8000);
 
   showText.style.display = 'block';
@@ -326,7 +326,7 @@ function flipCard(card) {
         numPairs++;
 
         // Mostrar el cuadro modal con la información de la carta emparejada
-        mostrarCuadro(cardValue.nombre, cardValue.descripcion, cardValue.imagen);
+        showInfo(cardValue.nombre, cardValue.descripcion, cardValue.imagen);
 
         // Verificar si se han emparejado todas las cartas
         if (numPairs === numCardsInput.value / 2) {
@@ -356,7 +356,7 @@ function flipCard(card) {
   }
 }
 // Función para ocultar el cuadro modal al cerrarlo
-function ocultarCuadro(elapsedTime) {
+function hideInfo(elapsedTime) {
   // Reanuda el temporizador al cerrar el modal si no es el último par
   if (numPairs !== numCardsInput.value / 2) {
     // Inicia el temporizador con el tiempo transcurrido
