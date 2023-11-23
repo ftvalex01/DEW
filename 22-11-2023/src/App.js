@@ -1,12 +1,17 @@
 
 import './App.css';
-import Hola from './components/Hola';
+import Api from './components/Api';
+
+
+
 
 function App() {
-  let text="hola mundo";
+
+
   return (
     <div className="App">
-      <Hola props={text}></Hola>
+    
+      <Api></Api>
     </div>
   );
 }
