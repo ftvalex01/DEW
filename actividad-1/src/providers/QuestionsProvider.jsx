@@ -1,25 +1,25 @@
-import React, { createContext, useState, useContext } from 'react';
-
+import React, { createContext, useReducer, useContext } from 'react';
+import { QuestionsReducer } from './QuestionsReducer';
 const QuestionsContext = createContext();
+
+
+
 
 export const useQuestions = () => useContext(QuestionsContext);
 
 export const QuestionsProvider = ({ children }) => {
-  const [questions, setQuestions] = useState([]);
-  const [nextId, setNextId] = useState(1);
+  const [state, dispatch] = useReducer(QuestionsReducer, { questions: [], nextId: 1 });
 
-  const addQuestion = (newQuestion) => {
-    newQuestion.id = nextId;
-    setNextId(nextId + 1);
-    setQuestions([...questions, newQuestion]);
+  const addQuestion = nuevaPregunta => {
+    dispatch({ type: 'AGREGAR_PREGUNTA', payload: nuevaPregunta });
   };
 
-  const deleteQuestion = (id) => {
-    setQuestions(questions.filter(question => question.id !== id));
+  const deleteQuestion = id => {
+    dispatch({ type: 'BORRAR_PREGUNTA', payload: id });
   };
 
   return (
-    <QuestionsContext.Provider value={{ questions, addQuestion, deleteQuestion }}>
+    <QuestionsContext.Provider value={{ questions: state.questions, addQuestion, deleteQuestion }}>
       {children}
     </QuestionsContext.Provider>
   );
