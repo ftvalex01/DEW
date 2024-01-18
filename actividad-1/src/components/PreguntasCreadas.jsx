@@ -1,14 +1,16 @@
 import React from 'react';
 import Pregunta from './Pregunta';
+import { useQuestions } from '../providers/QuestionsProvider';
 
-const PreguntasCreadas = ({ preguntas,borrarPregunta }) => {
+const PreguntasCreadas = () => {
+  const { questions, deleteQuestion } = useQuestions();
 
   return (
     <div>
         <ul className='group-list'>
-            {preguntas.map((pregunta, index) => (
+            {questions.map((pregunta, index) => (
                 <li key={index}>
-                    <Pregunta pregunta={pregunta}  borrarPregunta={borrarPregunta}/>
+                    <Pregunta pregunta={pregunta} borrarPregunta={deleteQuestion} />
                 </li>
             ))}
         </ul>

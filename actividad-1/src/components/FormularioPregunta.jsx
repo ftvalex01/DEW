@@ -1,48 +1,50 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import Swal from 'sweetalert2';
+import { useQuestions } from '../providers/QuestionsProvider';
 
-const FormularioPregunta = ({objetoPregunta}) => {
+const FormularioPregunta = () => {
+    const { addQuestion } = useQuestions();
 
     const [pregunta, setPregunta] = useState({
-        enunciado:"enunciado",
-        respuesta1:"respuesta1",
-        respuesta2:"respuesta2",
-        respuesta3:"respuesta3",
-        respuesta4:"respuesta4",
-        respuestaCorrecta:-1,
-        favorita:false
+        enunciado: "Enunciado de la pregunta",
+        respuesta1: "Respuesta 1",
+        respuesta2: "Respuesta 2",
+        respuesta3: "Respuesta 3",
+        respuesta4: "Respuesta 4",
+        respuestaCorrecta: -1,
+        favorita: false
     });
 
-    const handleChange = (e) =>{
-        let nuevoValor = (e.target.value  === "checkbox") ? e.target.checked : e.target.value;
-        if(e.target.type === "radio"){
-            nuevoValor = parseInt(e.target.id[e.target.id.length - 1]);
-        } 
+    const handleChange = (e) => {
+        let nuevoValor;
+        if (e.target.type === 'checkbox') {
+            nuevoValor = e.target.checked;
+        } else if (e.target.type === 'radio') {
+            nuevoValor = parseInt(e.target.value);
+        } else {
+            nuevoValor = e.target.value;
+        }
+
         setPregunta({
             ...pregunta,
-            [e.target.name]:nuevoValor
-        })
-    }
-    const handleSubmit = (e) =>{
-        e.preventDefault();
-        objetoPregunta({
-            ...pregunta
-        })
-        Swal.fire({
-            position:'top-end',
-            title: 'Pregunta añadida correctamente',
-            icon: 'success',
-            showConfirmButton:false,
-            timer:1200
+            [e.target.name]: nuevoValor
         });
-       
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        addQuestion({...pregunta});
+        Swal.fire({
+            position: 'top-end',
+            title: 'Pregunta añadida correctamente',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1200
+        });
+    };
 
     return (
-        //En cada elemento usamos el spreed operator ... para crear una copia del estado y modificar
-        //el valor que ha cambiado
-        <form onSubmit={handleSubmit} >        
+        <form onSubmit={handleSubmit}>
             <textarea
                 className="form-control mb-2"
                 placeholder="Enunciado pregunta"
@@ -50,71 +52,103 @@ const FormularioPregunta = ({objetoPregunta}) => {
                 value={pregunta.enunciado}
                 onChange={handleChange}
             />
+
+         
+            <div className="form-check mb-2">
+                <input
+                    type="radio"
+                    name="respuestaCorrecta"
+                    className="form-check-input"
+                    id="inputCheck1"
+                    value={1}
+                    onChange={handleChange}
+                    checked={pregunta.respuestaCorrecta === 1}
+                />
+                <input
+                    type="text"
+                    placeholder="Respuesta 1"
+                    className="form-control mb-2"
+                    name="respuesta1"
+                    value={pregunta.respuesta1}
+                    onChange={handleChange}
+                />
+            </div>
+            <div className="form-check mb-2">
+                <input
+                    type="radio"
+                    name="respuestaCorrecta"
+                    className="form-check-input"
+                    id="inputCheck2"
+                    value={2}
+                    onChange={handleChange}
+                    checked={pregunta.respuestaCorrecta === 2}
+                />
+                <input
+                    type="text"
+                    placeholder="Respuesta 1"
+                    className="form-control mb-2"
+                    name="respuesta2"
+                    value={pregunta.respuesta2}
+                    onChange={handleChange}
+                />
+            </div>
+            <div className="form-check mb-2">
+                <input
+                    type="radio"
+                    name="respuestaCorrecta"
+                    className="form-check-input"
+                    id="inputCheck3"
+                    value={3}
+                    onChange={handleChange}
+                    checked={pregunta.respuestaCorrecta === 3}
+                />
+                <input
+                    type="text"
+                    placeholder="Respuesta 3"
+                    className="form-control mb-2"
+                    name="respuesta3"
+                    value={pregunta.respuesta3}
+                    onChange={handleChange}
+                />
+            </div>
+            <div className="form-check mb-2">
+                <input
+                    type="radio"
+                    name="respuestaCorrecta"
+                    className="form-check-input"
+                    id="inputCheck4"
+                    value={4}
+                    onChange={handleChange}
+                    checked={pregunta.respuestaCorrecta === 4}
+                />
+                <input
+                    type="text"
+                    placeholder="Respuesta 4"
+                    className="form-control mb-2"
+                    name="respuesta4"
+                    value={pregunta.respuesta4}
+                    onChange={handleChange}
+                />
+            </div>
            
-            <div className="form-check mb-2">
-                <input type="radio" name="respuestacorrecta" className="form-check-input" id="inputCheck1"
-                onChange={handleChange}/>
-                <input
-                type="text"
-                placeholder= "Respuesta 1"
-                className= "form-control mb-2"
-                name="respuesta1"
-                htmlFor="inputCheck1"
-                value={pregunta.respuesta1}
-                onChange={handleChange}
-                />
-            </div>
-            <div className="form-check mb-2">
-                <input type="radio" name="respuestacorrecta" className="form-check-input" id="inputCheck2"
-                onChange={handleChange}/>
-                <input
-                type="text"
-                placeholder= "Respuesta 2"
-                className= "form-control mb-2"
-                name="respuesta2"
-                htmlFor="inputCheck2"
-                value={pregunta.respuesta2}
-                onChange={handleChange}
-                />
-            </div>
-            <div className="form-check mb-2">
-                <input type="radio" name="respuestacorrecta" className="form-check-input" id="inputCheck3"
-                onChange={handleChange}/>
-                <input
-                type="text"
-                placeholder= "Respuesta 3"
-                className= "form-control mb-2"
-                name="respuesta3"
-                htmlFor="inputCheck3"
-                value={pregunta.respuesta3}
-                onChange={handleChange}
-                />
-            </div>
-            <div className="form-check mb-2">
-                <input type="radio" name="respuestacorrecta" className="form-check-input mb-2" id="inputCheck4"
-                onChange={handleChange}/>
-                <input
-                type="text"
-                placeholder= "Respuesta 4"
-                className= "form-control mb-2"
-                name="respuesta4"
-                htmlFor="inputCheck4"
-                value={pregunta.respuesta4}
-                onChange={handleChange}
-                />
-            </div>
+
             <div className="form-check form-switch form-check-reverse mb-2">
-                <input type="checkbox" name="favorita" className="form-check-input " id="inputCheckFavourite" checked={pregunta.favorita}
-                //onChange={(e) => (setRegistroForm({...registroForm, priority: e.target.checked}))}/
-                onChange={handleChange}/>
-                <label  className="form-check-label" htmlFor="inputCheckFavourite">Favorita</label>
+                <input
+                    type="checkbox"
+                    name="favorita"
+                    className="form-check-input"
+                    id="inputCheckFavourite"
+                    checked={pregunta.favorita}
+                    onChange={handleChange}
+                />
+                <label className="form-check-label" htmlFor="inputCheckFavourite">Favorita</label>
             </div>
+
             <button type="submit" className="btn btn-primary">
                 Agregar
             </button>
         </form>
-    )
+    );
+};
 
-}
-
-export default FormularioPregunta
+export default FormularioPregunta;
